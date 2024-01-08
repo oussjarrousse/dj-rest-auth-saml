@@ -1,0 +1,5 @@
+wheel
+djangorestframework>=3.14.0
+djangorestframework-simplejwt
+dj-rest-auth
+django-allauth[saml]==0.57.0
