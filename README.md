@@ -56,17 +56,15 @@ SOCIAL_LOGIN_SAML_ENABLED = True
 
 ```
 
-## Configurations:
-
-```python
 SOCIALACCOUNT_PROVIDERS = {
     "saml": {"Apps": [
 
     ]}
 }
-```
 
-and follow the detailed in the following link to add your SAML provider(s) in the SOCIALACCOUNT_PROVIDERS["saml"]["Apps"] list:
+## Configurations:
+
+follow the detailed in the following link to add your SAML provider(s) in the SOCIALACCOUNT_PROVIDERS["saml"]["Apps"] list:
 
 https://docs.allauth.org/en/latest/socialaccount/providers/saml.html
 
