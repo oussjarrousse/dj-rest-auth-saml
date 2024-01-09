@@ -43,7 +43,6 @@ sensitive_post_parameters_m = method_decorator(
     )
 )
 
-
 class SAMLException(Exception):
     pass
 
