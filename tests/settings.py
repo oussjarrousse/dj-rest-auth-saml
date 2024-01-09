@@ -10,10 +10,12 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
-    "mfa",
-    "allauth",    
-    "dj_rest_auth",
-    "dj_rest_auth_saml",
+    "allauth",  # this is django-allauth
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.saml",  # saml support from django-allauth
+    "dj_rest_auth", # this is dj-rest-auth
+    "dj_rest_auth_saml"  # this package
 ]
 
 # https://docs.djangoproject.com/en/4.2/ref/contrib/sites/

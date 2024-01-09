@@ -13,4 +13,3 @@ validators          # a package containing several validator functions
 hypothesis          # plugin that helps in automatize generating random values instead of static values in pyttests
 lorem-text          # generate dummy text
 pytest-django       # pytest support for Django
-
