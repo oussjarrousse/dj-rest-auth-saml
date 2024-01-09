@@ -73,10 +73,17 @@ https://docs.allauth.org/en/latest/socialaccount/providers/saml.html
 alternatively you can add a migration that adds your SAML provider to the database using the utility function `dj_rest_auth_saml.utils.add_default_saml_application` that requires the following configurations to be set in the `settings.py` file:
 
 
-SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID = 
-SOCIAL_LOGIN_SAML_SP_ID = 
-SOCIAL_LOGIN_SAML_IDP_SSO_URL = "" # The url for the 
-SOCIAL_LOGIN_SAML_IDP_X509CERT = "" # the X509 IDP CERT
+SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID = "IDP_PROVIDER_ID"  # For Google as a provider "https://accounts.google.com/o/saml2?idpid=XXXXXXXXX" 
+SOCIAL_LOGIN_SAML_SP_ID = "SP_ID"  # The SP ID used at the IDP
+SOCIAL_LOGIN_SAML_IDP_SSO_URL = "https://idp_sso_url"  # The url for the IDP SSO, for google: "https://accounts.google.com/o/saml2/idp?idpid=XXXXXXXXX"
+SOCIAL_LOGIN_SAML_IDP_X509CERT = "-----BEGIN CERTIFICATE-----.....-----END CERTIFICATE-----"  # the X509 IDP CERT
+SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING={
+  "uid": "uid",
+  "email": "email",
+  "email_verified": "email_verified",
+  "first_name": "first_name",
+  "last_name": "last_name"
+}
 
 ## Contributing
 Contributions to this project are welcomed! The Contributing Guide is still under construction.
