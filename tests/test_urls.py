@@ -1,13 +1,15 @@
 from django.conf import settings
 
-def test_urlpatters_saml_disabled():
-    settings.SOCIAL_LOGIN_SAML_ENABLED = False
-    from dj_rest_auth_saml.urls import urlpatterns
-    assert isinstance(urlpatterns, list)
-    assert len(urlpatterns) == 0
+import importlib
 
-def test_urlpatters_saml_enabled():
+
+
+def test_urlpatters_saml():
+    settings.SOCIAL_LOGIN_SAML_ENABLED = False
+    import dj_rest_auth_saml.urls
+    assert isinstance(dj_rest_auth_saml.urls.urlpatterns, list)
+    assert len(dj_rest_auth_saml.urls.urlpatterns) == 0
     settings.SOCIAL_LOGIN_SAML_ENABLED = True
-    from dj_rest_auth_saml.urls import urlpatterns
-    assert isinstance(urlpatterns, list)
-    assert len(urlpatterns) == 0
+    importlib.reload(dj_rest_auth_saml.urls)
+    assert isinstance(dj_rest_auth_saml.urls.urlpatterns, list)
+    assert len(dj_rest_auth_saml.urls.urlpatterns) == 1
