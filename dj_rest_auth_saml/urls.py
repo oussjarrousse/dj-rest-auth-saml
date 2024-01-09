@@ -10,6 +10,8 @@ from django.urls import path
 from .views import CustomACSView
 from .views import CustomFinishACSView
 
+urlpatterns = []
+
 if settings.SOCIAL_LOGIN_SAML_ENABLED:
     urlpatterns = [
         path(

@@ -5,19 +5,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Django",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/src/manage.py",
-            "args": [
-                "runserver",
-                "--noreload"
-            ],
-            "django": true,
-            "justMyCode": false,
-            "env": {"LOAD_DOTENV_FOR_DYNACONF": "true"}
-        },
-        {
             "type": "python",
             "request": "attach",
             "name": "Docker: Attach to Python",
