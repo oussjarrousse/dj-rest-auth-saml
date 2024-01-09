@@ -54,7 +54,14 @@ def test_add_default_saml_application():
     settings.APP_HOST = "example.com"
 
     assert add_default_saml_application(apps, None) is None
-    
+    SocialApp = apps.get_model("socialaccount", "SocialApp")
+    social_app = SocialApp.objects.get(provider="saml")
+    assert social_app.client_id == settings.SOCIAL_LOGIN_SAML_SP_ID
+    assert social_app.provider_id == settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID
+    assert social_app.settings["attribute_mapping"] == settings.SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING
+    assert social_app.settings["idp"]["entity_id"] == settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID
+    assert social_app.settings["idp"]["sso_url"] == settings.SOCIAL_LOGIN_SAML_IDP_SSO_URL
+    assert social_app.settings["idp"]["x509cert"] == settings.SOCIAL_LOGIN_SAML_IDP_X509CERT
 
 # def change_site_domain(apps):
 #     Site = apps.get_model("sites", "Site")

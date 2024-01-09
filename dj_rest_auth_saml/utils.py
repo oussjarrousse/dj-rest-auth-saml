@@ -42,7 +42,7 @@ def add_default_saml_application(apps, schema_editor):
         provider_id=settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID,
         client_id=settings.SOCIAL_LOGIN_SAML_SP_ID,
         settings={
-            "attribute_mappting": settings.SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING,
+            "attribute_mapping": settings.SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING,
             "idp": {
                     "entity_id": settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID,
                     "sso_url": settings.SOCIAL_LOGIN_SAML_IDP_SSO_URL,
