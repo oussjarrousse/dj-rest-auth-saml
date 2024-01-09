@@ -1,7 +1,10 @@
 import pytest
 
+from django.conf import settings
+from django.apps import apps
 from dj_rest_auth_saml.utils import decode_relay_state
 from dj_rest_auth_saml.utils import string_to_int_hash
+from dj_rest_auth_saml.utils import add_default_saml_application
 
 
 @pytest.mark.UTILS
@@ -40,3 +43,30 @@ def test_string_to_int_hash():
     result = string_to_int_hash(s)
     assert isinstance(result, int)
     assert result == 281949768489412648962353822266799178366
+
+@pytest.mark.django_db
+@pytest.mark.UTILS
+def test_add_default_saml_application():
+    settings.SOCIAL_LOGIN_SAML_ENABLED = False
+    assert add_default_saml_application(None, None) is None
+    settings.SOCIAL_LOGIN_SAML_ENABLED = True
+    # assert change_site_domain(apps)
+    settings.APP_HOST = "example.com"
+
+    assert add_default_saml_application(apps, None) is None
+    
+
+# def change_site_domain(apps):
+#     Site = apps.get_model("sites", "Site")
+#     domain = settings.APP_HOST
+#     name = settings.APP_NAME
+
+#     site, created = Site.objects.get_or_create(
+#         domain="example.com", defaults={"name": name, "domain": domain}
+#     )
+
+#     # if not created:
+#     site.domain = domain
+#     site.name = name
+#     site.save()
+#     return True

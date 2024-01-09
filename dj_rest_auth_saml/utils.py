@@ -30,11 +30,10 @@ def string_to_int_hash(s):
 
 
 def add_default_saml_application(apps, schema_editor):
+    if not settings.SOCIAL_LOGIN_SAML_ENABLED:
+        return    
     Site = apps.get_model("sites", "Site")
     site = Site.objects.get(domain=settings.APP_HOST)
-
-    if not settings.SOCIAL_LOGIN_SAML_ENABLED:
-        return
 
     SocialApp = apps.get_model("socialaccount", "SocialApp")
     (social_app, created) = SocialApp.objects.get_or_create(
@@ -43,18 +42,17 @@ def add_default_saml_application(apps, schema_editor):
         provider_id=settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID,
         client_id=settings.SOCIAL_LOGIN_SAML_SP_ID,
         settings={
-            "attribute_mapping": {
-                "uid": "uid",
-                "email": "email",
-                "email_verified": "email_verified",
-                "first_name": "first_name",
-                "last_name": "last_name",
-            },
+            "attribute_mappting": settings.SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING,
             "idp": {
-                "entity_id": settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID,
-                "sso_url": settings.SOCIAL_LOGIN_SAML_IDP_SSO_URL,
-                "x509cert": settings.SOCIAL_LOGIN_SAML_IDP_X509CERT,
+                    "entity_id": settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID,
+                    "sso_url": settings.SOCIAL_LOGIN_SAML_IDP_SSO_URL,
+                    "x509cert": settings.SOCIAL_LOGIN_SAML_IDP_X509CERT,
             },
-        },
+        }
     )
     social_app.sites.add(site)
+
+
+def remove_default_saml_application(apps, schema_editor):
+    SocialApp = apps.get_model("socialaccount", "SocialApp")
+    SocialApp.objects.filter(name="SAML Integration").delete()
