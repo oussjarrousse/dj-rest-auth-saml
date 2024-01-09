@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
-    "mfa",  # this is django-mfa2
     "allauth",  # this is django-allauth
     "allauth.account",
     "allauth.socialaccount",
