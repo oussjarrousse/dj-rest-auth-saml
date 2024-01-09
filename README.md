@@ -22,7 +22,7 @@ pip install dj-rest-auth-saml
 
 In the settings.py you should have the following:
 
-```pytest
+```python
 INSTALLED_APPS = [
     # ...
     "django.contrib.sites",
@@ -38,21 +38,45 @@ INSTALLED_APPS = [
     "dj_rest_auth_saml"  # this package
 ]
 
+SITE_ID = 1
+
+MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware", # this is important for allauth
+]
+
+SOCIAL_LOGIN_SAML_ENABLED = True
+
+```
+
 ## Configurations:
 
+```python
 SOCIALACCOUNT_PROVIDERS = {
     "saml": {"Apps": [
 
     ]}
 }
+```
 
 and follow the detailed in the following link to add your SAML provider(s) in the SOCIALACCOUNT_PROVIDERS["saml"]["Apps"] list:
 
 https://docs.allauth.org/en/latest/socialaccount/providers/saml.html
 
-alternatively you can add a migration that adds your SAML provider to the database:
+alternatively you can add a migration that adds your SAML provider to the database using the utility function `dj_rest_auth_saml.utils.add_default_saml_application` that requires the following configurations to be set in the `settings.py` file:
 
 
+SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID = 
+SOCIAL_LOGIN_SAML_SP_ID = 
+SOCIAL_LOGIN_SAML_IDP_SSO_URL = "" # The url for the 
+SOCIAL_LOGIN_SAML_IDP_X509CERT = "" # the X509 IDP CERT
 
 ## Contributing
 Contributions to this project are welcomed! The Contributing Guide is still under construction.
