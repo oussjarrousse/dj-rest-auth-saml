@@ -14,14 +14,43 @@ pip install django-allauth[SAML]
 
 ## Installation
 
-To install `dj-rest-auth-saml ` run:
+To install `dj-rest-auth-saml` run:
 
 ```bash
 pip install dj-rest-auth-saml
 ```
 
+In the settings.py you should have the following:
+
+```pytest
+INSTALLED_APPS = [
+    # ...
+    "django.contrib.sites",
+    "corsheaders",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "mfa",  # this is django-mfa2
+    "allauth",  # this is django-allauth
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.saml",  # saml support from django-allauth
+    "dj_rest_auth", # this is dj-rest-auth
+    "dj_rest_auth_saml"  # this package
+]
+
 ## Configurations:
 
+SOCIALACCOUNT_PROVIDERS = {
+    "saml": {"Apps": [
+
+    ]}
+}
+
+and follow the detailed in the following link to add your SAML provider(s) in the SOCIALACCOUNT_PROVIDERS["saml"]["Apps"] list:
+
+https://docs.allauth.org/en/latest/socialaccount/providers/saml.html
+
+alternatively you can add a migration that adds your SAML provider to the database:
 
 
 
