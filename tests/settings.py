@@ -75,7 +75,8 @@ SOCIALACCOUNT_PROVIDERS = {"saml": {"Apps": []}}
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-APP_HOST = "example.com"
+APP_HOST = "testserver"
+APP_NAME = "example"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

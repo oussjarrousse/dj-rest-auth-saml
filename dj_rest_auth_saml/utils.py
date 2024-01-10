@@ -1,6 +1,7 @@
 import hashlib
 from urllib.parse import parse_qsl
 from urllib.parse import urlparse
+
 from django.conf import settings
 
 
@@ -29,7 +30,25 @@ def string_to_int_hash(s):
     return int(hasher.hexdigest(), 16)
 
 
+def change_site_domain(apps, schema_editor):
+    Site = apps.get_model("sites", "Site")
+    domain = settings.APP_HOST
+    name = settings.APP_NAME
+
+    site, created = Site.objects.get_or_create(
+        domain="example.com", defaults={"name": name, "domain": domain}
+    )
+
+    # if not created:
+    site.domain = domain
+    site.name = name
+    site.save()
+
+
 def add_default_saml_application(apps, schema_editor):
+    if apps:
+        change_site_domain(apps, schema_editor)
+
     if not settings.SOCIAL_LOGIN_SAML_ENABLED:
         return
     Site = apps.get_model("sites", "Site")

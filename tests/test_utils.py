@@ -1,11 +1,11 @@
 import pytest
-
-from django.conf import settings
 from django.apps import apps
-from dj_rest_auth_saml.utils import decode_relay_state
-from dj_rest_auth_saml.utils import string_to_int_hash
+from django.conf import settings
+
 from dj_rest_auth_saml.utils import add_default_saml_application
+from dj_rest_auth_saml.utils import decode_relay_state
 from dj_rest_auth_saml.utils import remove_default_saml_application
+from dj_rest_auth_saml.utils import string_to_int_hash
 
 
 @pytest.mark.UTILS
@@ -18,7 +18,7 @@ def test_decode_relay_state():
     assert isinstance(ret, dict)
     assert not ret
 
-    url = "http://www.example.com?param1=value1&param2=value2"
+    url = "http://testserver?param1=value1&param2=value2"
     expected = {"next": url}
     ret = decode_relay_state(url)
     assert isinstance(ret, dict)
@@ -52,7 +52,7 @@ def test_add_default_saml_application_and_remove():
     assert add_default_saml_application(None, None) is None
     settings.SOCIAL_LOGIN_SAML_ENABLED = True
     # assert change_site_domain(apps)
-    settings.APP_HOST = "example.com"
+    settings.APP_HOST = "testserver"
 
     assert add_default_saml_application(apps, None) is None
     SocialApp = apps.get_model("socialaccount", "SocialApp")

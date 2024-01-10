@@ -1,15 +1,18 @@
+import json
+
 import pytest
 from allauth.socialaccount.providers.saml.provider import SAMLProvider
-from dj_rest_auth_saml.views import SAMLException
-from dj_rest_auth_saml.views import SAMLAuthenticationException
-from dj_rest_auth_saml.views import SAMLAuthenticationFailed
-from dj_rest_auth_saml.views import SAML2Adapter
-from dj_rest_auth_saml.views import CustomACSView
-from dj_rest_auth_saml.views import CustomFinishACSView
 from dj_rest_auth.registration.views import SocialLoginView
-from dj_rest_auth_saml.utils import add_default_saml_application
 from django.apps import apps
 from django.urls import reverse
+
+from dj_rest_auth_saml.utils import add_default_saml_application
+from dj_rest_auth_saml.views import CustomACSView
+from dj_rest_auth_saml.views import CustomFinishACSView
+from dj_rest_auth_saml.views import SAML2Adapter
+from dj_rest_auth_saml.views import SAMLAuthenticationException
+from dj_rest_auth_saml.views import SAMLAuthenticationFailed
+from dj_rest_auth_saml.views import SAMLException
 
 
 class Tests_SAML2Adapter:
@@ -24,10 +27,9 @@ class Tests_SAML2Adapter:
         assert adapter.organization_slug == "example"
         assert isinstance(adapter.provider, SAMLProvider)
 
-
     @pytest.mark.django_db
     @pytest.mark.FOCUS
-    @pytest.mark.UNIT    
+    @pytest.mark.UNIT
     def test_authenticate(self):
         pass
 
@@ -55,5 +57,10 @@ class Tests_CustomACSView:
     def test_post(self, unauthenticated_api_client):
         add_default_saml_application(apps, None)
         client = unauthenticated_api_client
-        url = reverse("saml_acs", kwargs={"organization_slug":"example"})
-        client.post(url)
+        url = reverse("saml_acs", kwargs={"organization_slug": "example"})
+        POST = {"title": "new idea"}
+        headers = {"HTTP_HOST": "testserver"}
+        r = client.post(
+            url, json.dumps(POST), content_type="application/json", **headers
+        )
+        assert r.status_code == 200
