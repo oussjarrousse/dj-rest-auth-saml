@@ -17,6 +17,8 @@ from dj_rest_auth_saml.views import SAMLAuthenticationException
 from dj_rest_auth_saml.views import SAMLAuthenticationFailed
 from dj_rest_auth_saml.views import SAMLException
 
+# from onelogin.saml2.auth import OneLogin_Saml2_Auth
+
 
 class Tests_SAML2Adapter:
     @pytest.mark.django_db
@@ -58,7 +60,7 @@ class Tests_CustomACSView:
     @pytest.mark.django_db
     @pytest.mark.FOCUS
     @pytest.mark.API
-    def test_post(self, unauthenticated_api_client):
+    def test_post(self, unauthenticated_api_client, mocker):
         settings.SOCIAL_LOGIN_SAML_ALLOW_SINGLE_LABEL_DOMAINS = True
 
         change_site_domain(apps, None)
@@ -68,10 +70,39 @@ class Tests_CustomACSView:
         data = {"SAMLResponse": "TEST"}
         encoded_data = urllib.parse.urlencode(data)
         headers = {"HTTP_HOST": "testserver"}
+
+        class OneLogin_Saml2_Auth_Mock:
+            def __init__(self):
+                self._attributes = {
+                    "uid": None,
+                    "email": "user@idp.com",
+                    "username": "user",
+                    "email_verified": ["true"],
+                }
+
+            def process_response(self):
+                pass
+
+            def get_errors(self):
+                return None
+
+            def is_authenticated(self):
+                return True
+
+            def get_attributes(self):
+                return self._attributes
+
+            def get_attribute(self, attr):
+                return self._attributes[attr]
+
+        mocker.patch.object(
+            SAML2Adapter, "build_auth", return_value=OneLogin_Saml2_Auth_Mock()
+        )
+
         r = client.post(
             f"{url}",
             encoded_data,
             content_type="application/x-www-form-urlencoded",
             **headers,
         )
-        assert r.status_code == 200
+        assert r.status_code == 302
