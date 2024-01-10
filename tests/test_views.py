@@ -1,4 +1,5 @@
 import json
+import urllib.parse
 
 import pytest
 from allauth.socialaccount.providers.saml.provider import SAMLProvider
@@ -64,9 +65,13 @@ class Tests_CustomACSView:
         add_default_saml_application(apps, None)
         client = unauthenticated_api_client
         url = reverse("saml_acs", kwargs={"organization_slug": "example"})
-        POST = {"title": "new idea"}
+        data = {"SAMLResponse": "TEST"}
+        encoded_data = urllib.parse.urlencode(data)
         headers = {"HTTP_HOST": "testserver"}
         r = client.post(
-            url, json.dumps(POST), content_type="application/json", **headers
+            f"{url}",
+            encoded_data,
+            content_type="application/x-www-form-urlencoded",
+            **headers,
         )
         assert r.status_code == 200
