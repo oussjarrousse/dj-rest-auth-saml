@@ -80,11 +80,13 @@ SOCIALACCOUNT_PROVIDERS = {
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+APP_HOST = "example.com"
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID = "IDP_PROVIDER_ID"
-SOCIAL_LOGIN_SAML_SP_ID = "SP_ID"
-SOCIAL_LOGIN_SAML_IDP_SSO_URL = "https://idp.com/sso/sp_id"
+SOCIAL_LOGIN_SAML_SP_ID = "example"
+SOCIAL_LOGIN_SAML_IDP_SSO_URL = "https://idp.com/sso/example"
 SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING = {
     "uid": "uid",
     "email": "email",
