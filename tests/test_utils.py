@@ -3,6 +3,7 @@ from django.apps import apps
 from django.conf import settings
 
 from dj_rest_auth_saml.utils import add_default_saml_application
+from dj_rest_auth_saml.utils import change_site_domain
 from dj_rest_auth_saml.utils import decode_relay_state
 from dj_rest_auth_saml.utils import remove_default_saml_application
 from dj_rest_auth_saml.utils import string_to_int_hash
@@ -49,11 +50,13 @@ def test_string_to_int_hash():
 @pytest.mark.UTILS
 def test_add_default_saml_application_and_remove():
     settings.SOCIAL_LOGIN_SAML_ENABLED = False
+    # change_site_domain(apps, None)
     assert add_default_saml_application(None, None) is None
     settings.SOCIAL_LOGIN_SAML_ENABLED = True
     # assert change_site_domain(apps)
     settings.APP_HOST = "testserver"
 
+    change_site_domain(apps, None)
     assert add_default_saml_application(apps, None) is None
     SocialApp = apps.get_model("socialaccount", "SocialApp")
     social_app = SocialApp.objects.get(provider="saml")

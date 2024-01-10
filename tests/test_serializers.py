@@ -1,14 +1,16 @@
-import pytest
+from importlib import import_module
 
-from rest_framework.test import APIRequestFactory
+import pytest
+from dj_rest_auth.registration.serializers import SocialLoginSerializer
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
-from dj_rest_auth_saml.utils import add_default_saml_application
+from rest_framework.test import APIRequestFactory
+
 from dj_rest_auth_saml.serializers import SAMLSocialLoginSerializer
+from dj_rest_auth_saml.utils import add_default_saml_application
+from dj_rest_auth_saml.utils import change_site_domain
 from dj_rest_auth_saml.views import CustomFinishACSView
-from dj_rest_auth.registration.serializers import SocialLoginSerializer
-from importlib import import_module
 
 
 class Tests_SAMLSocialLoginSerializer:

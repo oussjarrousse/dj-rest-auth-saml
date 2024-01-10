@@ -46,9 +46,6 @@ def change_site_domain(apps, schema_editor):
 
 
 def add_default_saml_application(apps, schema_editor):
-    if apps:
-        change_site_domain(apps, schema_editor)
-
     if not settings.SOCIAL_LOGIN_SAML_ENABLED:
         return
     Site = apps.get_model("sites", "Site")
@@ -62,6 +59,9 @@ def add_default_saml_application(apps, schema_editor):
         client_id=settings.SOCIAL_LOGIN_SAML_SP_ID,
         settings={
             "attribute_mapping": settings.SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING,
+            "advanced": {
+                "allow_single_label_domains": settings.SOCIAL_LOGIN_SAML_ALLOW_SINGLE_LABEL_DOMAINS
+            },
             "idp": {
                 "entity_id": settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID,
                 "sso_url": settings.SOCIAL_LOGIN_SAML_IDP_SSO_URL,
