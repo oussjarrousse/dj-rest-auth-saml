@@ -10,7 +10,6 @@ from dj_rest_auth_saml.utils import remove_default_saml_application
 
 @pytest.mark.UTILS
 def test_decode_relay_state():
-
     ret = decode_relay_state(None)
     assert isinstance(ret, dict)
     assert not ret
@@ -45,6 +44,7 @@ def test_string_to_int_hash():
     assert isinstance(result, int)
     assert result == 281949768489412648962353822266799178366
 
+
 @pytest.mark.django_db
 @pytest.mark.UTILS
 def test_add_default_saml_application_and_remove():
@@ -59,10 +59,21 @@ def test_add_default_saml_application_and_remove():
     social_app = SocialApp.objects.get(provider="saml")
     assert social_app.client_id == settings.SOCIAL_LOGIN_SAML_SP_ID
     assert social_app.provider_id == settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID
-    assert social_app.settings["attribute_mapping"] == settings.SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING
-    assert social_app.settings["idp"]["entity_id"] == settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID
-    assert social_app.settings["idp"]["sso_url"] == settings.SOCIAL_LOGIN_SAML_IDP_SSO_URL
-    assert social_app.settings["idp"]["x509cert"] == settings.SOCIAL_LOGIN_SAML_IDP_X509CERT
+    assert (
+        social_app.settings["attribute_mapping"]
+        == settings.SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING
+    )
+    assert (
+        social_app.settings["idp"]["entity_id"]
+        == settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID
+    )
+    assert (
+        social_app.settings["idp"]["sso_url"] == settings.SOCIAL_LOGIN_SAML_IDP_SSO_URL
+    )
+    assert (
+        social_app.settings["idp"]["x509cert"]
+        == settings.SOCIAL_LOGIN_SAML_IDP_X509CERT
+    )
 
     remove_default_saml_application(apps, None)
     assert SocialApp.objects.all().count() == 0

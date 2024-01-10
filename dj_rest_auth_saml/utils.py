@@ -31,7 +31,7 @@ def string_to_int_hash(s):
 
 def add_default_saml_application(apps, schema_editor):
     if not settings.SOCIAL_LOGIN_SAML_ENABLED:
-        return    
+        return
     Site = apps.get_model("sites", "Site")
     site = Site.objects.get(domain=settings.APP_HOST)
 
@@ -44,11 +44,11 @@ def add_default_saml_application(apps, schema_editor):
         settings={
             "attribute_mapping": settings.SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING,
             "idp": {
-                    "entity_id": settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID,
-                    "sso_url": settings.SOCIAL_LOGIN_SAML_IDP_SSO_URL,
-                    "x509cert": settings.SOCIAL_LOGIN_SAML_IDP_X509CERT,
+                "entity_id": settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID,
+                "sso_url": settings.SOCIAL_LOGIN_SAML_IDP_SSO_URL,
+                "x509cert": settings.SOCIAL_LOGIN_SAML_IDP_X509CERT,
             },
-        }
+        },
     )
     social_app.sites.add(site)
 

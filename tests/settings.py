@@ -4,9 +4,9 @@ SECRET_KEY = "fake-key-for-testing"
 INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "django.contrib.sessions",    
-    "django.contrib.sites",    
-    # TODO: Add these to documentation 
+    "django.contrib.sessions",
+    "django.contrib.sites",
+    # TODO: Add these to documentation
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
@@ -14,14 +14,14 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.saml",  # saml support from django-allauth
-    "dj_rest_auth", # this is dj-rest-auth
-    "dj_rest_auth_saml"  # this package
+    "dj_rest_auth",  # this is dj-rest-auth
+    "dj_rest_auth_saml",  # this package
 ]
 
 # https://docs.djangoproject.com/en/4.2/ref/contrib/sites/
 SITE_ID = 1
 
-ROOT_URLCONF="dj_rest_auth_saml.urls"
+ROOT_URLCONF = "dj_rest_auth_saml.urls"
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -40,16 +40,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-        ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -71,11 +70,7 @@ STORAGES = {
 }
 
 SOCIAL_LOGIN_SAML_ENABLED = True
-SOCIALACCOUNT_PROVIDERS = {
-    "saml": {"Apps": [
-
-    ]}
-}
+SOCIALACCOUNT_PROVIDERS = {"saml": {"Apps": []}}
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")

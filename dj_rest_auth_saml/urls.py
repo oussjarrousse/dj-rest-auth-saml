@@ -1,5 +1,5 @@
-from allauth.socialaccount.providers.saml.views import ACSView
-from allauth.socialaccount.providers.saml.views import FinishACSView
+# from allauth.socialaccount.providers.saml.views import ACSView
+# from allauth.socialaccount.providers.saml.views import FinishACSView
 from allauth.socialaccount.providers.saml.views import LoginView
 from allauth.socialaccount.providers.saml.views import MetadataView
 from allauth.socialaccount.providers.saml.views import SLSView

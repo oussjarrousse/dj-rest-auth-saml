@@ -9,9 +9,10 @@ from dj_rest_auth_saml.views import CustomFinishACSView
 from dj_rest_auth.registration.views import SocialLoginView
 from dj_rest_auth_saml.utils import add_default_saml_application
 from django.apps import apps
+from django.urls import reverse
 
-class Tests_SAML2Adapter():
 
+class Tests_SAML2Adapter:
     @pytest.mark.django_db
     @pytest.mark.FOCUS
     @pytest.mark.UNIT
@@ -22,12 +23,16 @@ class Tests_SAML2Adapter():
         assert adapter.request == request
         assert adapter.organization_slug == "example"
         assert isinstance(adapter.provider, SAMLProvider)
-        
 
 
+    @pytest.mark.django_db
+    @pytest.mark.FOCUS
+    @pytest.mark.UNIT    
+    def test_authenticate(self):
+        pass
 
-class Tests_CustomACSView():
 
+class Tests_CustomACSView:
     @pytest.mark.UNIT
     @pytest.mark.FOCUS
     def test_init(self):
@@ -39,10 +44,16 @@ class Tests_CustomACSView():
         pass
 
     def test_get(self):
-        pass    
+        pass
 
     def test_list(self):
-        pass    
+        pass
 
-    def test_post(self):
-        pass    
+    @pytest.mark.django_db
+    @pytest.mark.FOCUS
+    @pytest.mark.API
+    def test_post(self, unauthenticated_api_client):
+        add_default_saml_application(apps, None)
+        client = unauthenticated_api_client
+        url = reverse("saml_acs", kwargs={"organization_slug":"example"})
+        client.post(url)

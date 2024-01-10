@@ -43,6 +43,7 @@ sensitive_post_parameters_m = method_decorator(
     )
 )
 
+
 class SAMLException(Exception):
     pass
 
@@ -163,7 +164,6 @@ class CustomACSView(SocialLoginView):
 
 
 class CustomFinishACSView(SocialLoginView):
-
     adapter_class = SAML2Adapter
     serializer_class = SAMLSocialLoginSerializer
 

@@ -10,6 +10,7 @@ from dj_rest_auth_saml.views import CustomFinishACSView
 from dj_rest_auth.registration.serializers import SocialLoginSerializer
 from importlib import import_module
 
+
 class Tests_SAMLSocialLoginSerializer:
     pass
     # @pytest.mark.django_db
@@ -32,7 +33,7 @@ class Tests_SAMLSocialLoginSerializer:
     #     store["login"] = {
     #         "account": {},
     #         "user": {
-    #             "username": "saml_user", 
+    #             "username": "saml_user",
     #             "email": "user@example.com"
     #         },
     #         "state": {
@@ -42,17 +43,16 @@ class Tests_SAMLSocialLoginSerializer:
     #             # "1":"saml_user@username.com"
     #         ]
     #     }
-        
+
     #     setattr(request, "saml_acs_session", store)
 
     #     view = CustomFinishACSView()
     #     view.organization_slug = "example"
     #     serializer = SAMLSocialLoginSerializer(context={"request": request, "view": view})
-    #     assert isinstance(serializer, SAMLSocialLoginSerializer)      
+    #     assert isinstance(serializer, SAMLSocialLoginSerializer)
     #     assert isinstance(serializer, SocialLoginSerializer)
 
     #     attrs = {
     #     }
     #     r = serializer.validate(attrs)
     #     assert isinstance(dict, attrs)
-
