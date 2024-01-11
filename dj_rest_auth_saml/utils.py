@@ -64,7 +64,7 @@ def add_default_saml_application(apps, schema_editor):
                 "authn_request_signed": settings.SOCIAL_LOGIN_SAML_AUTHN_REQUEST_SIGNED,
                 "digest_algorithm": settings.SOCIAL_LOGIN_SAML_DIGEST_ALGORITHM,
                 "logout_request_signed": settings.SOCIAL_LOGIN_SAML_LOGOUT_REQUEST_SINGED,
-                "logout_response_signed": settings.OCIAL_LOGIN_SAML_LOGOUT_RESPONSE_SIGNED,
+                "logout_response_signed": settings.SOCIAL_LOGIN_SAML_LOGOUT_RESPONSE_SIGNED,
                 "signature_algorithm": settings.SOCIAL_LOGIN_SAML_SIGNATURE_ALGORITHM,
                 "metadata_signed": settings.SOCIAL_LOGIN_SAML_METADATA_SIGNED,  #
                 "want_assertion_encrypted": settings.SOCIAL_LOGIN_SAML_WANT_ASSERTION_ENCRYPTED,
