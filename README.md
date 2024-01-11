@@ -80,7 +80,28 @@ SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING={
   "first_name": "first_name",
   "last_name": "last_name"
 }
+SOCIAL_LOGIN_SAML_AUTHN_REQUEST_SIGNED = False  # authn_request_signed
+SOCIAL_LOGIN_SAML_DIGEST_ALGORITHM =  digest_algorithm = 'http://www.w3.org/2001/04/xmlenc#sha256' # OneLogin_Saml2_Constants.SHA256,
+SOCIAL_LOGIN_SAML_LOGOUT_REQUEST_SINGED = False # logout_request_signed
+SOCIAL_LOGIN_SAML_LOGOUT_RESPONSE_SIGNED = False # logout_response_signed
+SOCIAL_LOGIN_SAML_SIGNATURE_ALGORITHM = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256' # signature_algorithm OneLogin_Saml2_Constants.RSA_SHA256
+SOCIAL_LOGIN_SAML_METADATA_SIGNED = False # metadata_signed
+SOCIAL_LOGIN_SAML_WANT_ASSERTION_ENCRYPTED = False # want_assertion_encrypted
+SOCIAL_LOGIN_SAML_WANT_ASSERTION_SIGNED = False # want_assertion_signed
+SOCIAL_LOGIN_SAML_WANT_MESSAGE_SIGNED = False # want_message_signed
+SOCIAL_LOGIN_SAML_NAME_ID_ENCRYPTED = False # name_id_encrypted
+SOCIAL_LOGIN_SAML_WANT_NAME_ID_ENCRYPTED = False # want_name_id_encrypted
 SOCIAL_LOGIN_SAML_ALLOW_SINGLE_LABEL_DOMAINS = False  # important for Unit testing
+SOCIAL_LOGIN_SAML_REJECT_DEPRECATED_ALGORITHM = True # reject_deprecated_algorithm
+SOCIAL_LOGIN_SAML_WANT_NAME_ID = False # want_name_id
+SOCIAL_LOGIN_SAML_WANT_ATTRIBUTE_STATEMENT = True # want_attribute_statement
+SOCIAL_LOGIN_SAML_ALLOW_REPEAT_ATTRIBUTE_NAME = True # allow_repeat_attribute_name
+
+#
+#
+#
+#
+#
 
 APP_HOST = "example.com" the hostname of this backend
 

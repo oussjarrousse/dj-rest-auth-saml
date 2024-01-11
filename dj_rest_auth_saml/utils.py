@@ -60,7 +60,22 @@ def add_default_saml_application(apps, schema_editor):
         settings={
             "attribute_mapping": settings.SOCIAL_LOGIN_SAML_ATTRIBUTE_MAPPING,
             "advanced": {
-                "allow_single_label_domains": settings.SOCIAL_LOGIN_SAML_ALLOW_SINGLE_LABEL_DOMAINS
+                "allow_single_label_domains": settings.SOCIAL_LOGIN_SAML_ALLOW_SINGLE_LABEL_DOMAINS,
+                "authn_request_signed": settings.SOCIAL_LOGIN_SAML_AUTHN_REQUEST_SIGNED,
+                "digest_algorithm": settings.SOCIAL_LOGIN_SAML_DIGEST_ALGORITHM,
+                "logout_request_signed": settings.SOCIAL_LOGIN_SAML_LOGOUT_REQUEST_SINGED,
+                "logout_response_signed": settings.OCIAL_LOGIN_SAML_LOGOUT_RESPONSE_SIGNED,
+                "signature_algorithm": settings.SOCIAL_LOGIN_SAML_SIGNATURE_ALGORITHM,
+                "metadata_signed": settings.SOCIAL_LOGIN_SAML_METADATA_SIGNED,  #
+                "want_assertion_encrypted": settings.SOCIAL_LOGIN_SAML_WANT_ASSERTION_ENCRYPTED,
+                "want_assertion_signed": settings.SOCIAL_LOGIN_SAML_WANT_ASSERTION_SIGNED,
+                "want_message_signed": settings.SOCIAL_LOGIN_SAML_WANT_MESSAGE_SIGNED,
+                "name_id_encrypted": settings.SOCIAL_LOGIN_SAML_NAME_ID_ENCRYPTED,
+                "want_name_id_encrypted": settings.SOCIAL_LOGIN_SAML_WANT_NAME_ID_ENCRYPTED,
+                "reject_deprecated_algorithm": settings.SOCIAL_LOGIN_SAML_REJECT_DEPRECATED_ALGORITHM,
+                "want_name_id": settings.SOCIAL_LOGIN_SAML_WANT_NAME_ID,
+                "want_attribute_statement": settings.SOCIAL_LOGIN_SAML_WANT_ATTRIBUTE_STATEMENT,
+                "allow_repeat_attribute_name": settings.SOCIAL_LOGIN_SAML_ALLOW_REPEAT_ATTRIBUTE_NAME,
             },
             "idp": {
                 "entity_id": settings.SOCIAL_LOGIN_SAML_IDP_PROVIDER_ID,
