@@ -12,13 +12,12 @@ setup(
     packages=find_packages(exclude=("tests",)),
     platforms="any",
     python_requires=">=3.6",
-    install_requires=
-    [
+    install_requires=[
         "Django>=4.1.7",
-        "djangorestframework>3.14.0", 
-        "djangorestframework-simplejwt", 
+        "djangorestframework>=3.14.0",
+        "djangorestframework-simplejwt",
         "dj-rest-auth",
-        "django-allauth[saml]==0.57.0"
+        "django-allauth[saml]==0.57.0",
     ],
     url="https://github.com/oussjarrousse/dj-rest-auth-saml",
     license="MIT",
@@ -28,7 +27,7 @@ setup(
     long_description=open("README.md", "r", encoding="utf-8").read(),
     keywords="Django REST SAML allauth dj-rest-auth SAML2.0 SAML2",
     extras_require={"dev": ["pre-commit", "tox"]},
-    version="0.0.1",
+    version="0.0.3",
     long_description_content_type="text/markdown",
     classifiers=[
         "Framework :: Pytest",
