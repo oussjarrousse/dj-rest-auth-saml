@@ -97,15 +97,15 @@ SOCIAL_LOGIN_SAML_WANT_NAME_ID = False # want_name_id
 SOCIAL_LOGIN_SAML_WANT_ATTRIBUTE_STATEMENT = True # want_attribute_statement
 SOCIAL_LOGIN_SAML_ALLOW_REPEAT_ATTRIBUTE_NAME = True # allow_repeat_attribute_name
 
-#
-#
-#
-#
-#
-
 APP_HOST = "example.com" the hostname of this backend
 
 ```
+
+## SAML flow:
+
+<img src="saml_flow_diagram.png" alt="example" width="800"/>
+
+
 
 ## Contributing
 Contributions to this project are welcomed! The Contributing Guide is still under construction.

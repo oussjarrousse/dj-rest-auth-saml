@@ -5,6 +5,7 @@ from dj_rest_auth.registration.serializers import SocialLoginSerializer
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import User
 from rest_framework.exceptions import ValidationError
 from rest_framework.test import APIRequestFactory
 
@@ -44,37 +45,43 @@ class Tests_SAMLSocialLoginSerializer:
         with pytest.raises(ValidationError):
             serializer.validate(None)
 
+        view = object()
+        context = {"request": request, "view": view}
+        serializer = SAMLSocialLoginSerializer(context=context)
+        with pytest.raises(ValidationError):
+            serializer.validate(None)
+
         view = CustomFinishACSView()
+        context = {"request": request, "view": view}
+        serializer = SAMLSocialLoginSerializer(context=context)
+        with pytest.raises(ValidationError):
+            serializer.validate(None)
 
-    #     request.user = AnonymousUser()
+        view.organization_slug = "example"
+        serializer = SAMLSocialLoginSerializer(context=context)
+        with pytest.raises(ValidationError):
+            serializer.validate(None)
 
-    #     setattr(request, "session", client.session)
+        engine = import_module(settings.SESSION_ENGINE)
 
-    #     engine = import_module(settings.SESSION_ENGINE)
-    #     SessionStore = engine.SessionStore
-
-    #     # session_key = request.COOKIES.get("saml-acs-session")
-    #     store = SessionStore("saml_acs_session")
-    #     store["login"] = {
-    #         "account": {},
-    #         "user": {
-    #             "username": "saml_user",
-    #             "email": "user@example.com"
-    #         },
-    #         "state": {
-    #             # "process": "xxx"
-    #         },
-    #         "email_addresses": [
-    #             # "1":"saml_user@username.com"
-    #         ]
-    #     }
-
-    #     setattr(request, "saml_acs_session", store)
-
-    #     view.organization_slug = "example"
-    #     serializer = SAMLSocialLoginSerializer(context={"request": request, "view": view})
-
-    #     attrs = {
-    #     }
-    #     r = serializer.validate(attrs)
-    #     assert isinstance(dict, attrs)
+        user = User(
+            is_superuser=False,
+            username="user",
+            email="user@idp.com",
+            is_active=False,
+            first_name="user",
+        )
+        user.save()
+        store = engine.SessionStore("saml-acs-session")
+        store["login"] = {
+            "account": {},
+            "user": {"username": user.username, "email": user.email},
+            "email_addresses": [{"email": "user@idp.com"}],
+            "state": {
+                "process": "",
+            },
+        }
+        setattr(request, "user", user)
+        setattr(request, "saml_acs_session", store)
+        setattr(request, "session", store)
+        serializer.validate(None)
