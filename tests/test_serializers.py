@@ -24,7 +24,7 @@ class Tests_SAMLSocialLoginSerializer:
         serializer.post_signup(None, None)
 
     @pytest.mark.django_db
-    def test_validate(self, unauthenticated_api_client):
+    def test_validate(self, unauthenticated_api_client, mocker):
         client = unauthenticated_api_client
         settings.APP_HOST = "example.com"
         add_default_saml_application(apps, None)
@@ -71,7 +71,8 @@ class Tests_SAMLSocialLoginSerializer:
             is_active=False,
             first_name="user",
         )
-        user.save()
+        # user.save()
+
         store = engine.SessionStore("saml-acs-session")
         store["login"] = {
             "account": {},
@@ -81,7 +82,22 @@ class Tests_SAMLSocialLoginSerializer:
                 "process": "",
             },
         }
+
         setattr(request, "user", user)
         setattr(request, "saml_acs_session", store)
+        context = {"request": request, "view": view}
+        serializer = SAMLSocialLoginSerializer(context=context)
+        with pytest.raises(ValidationError):
+            serializer.validate(None)
+
         setattr(request, "session", store)
-        serializer.validate(None)
+
+        mocker.patch(
+            "dj_rest_auth_saml.serializers.complete_social_login", return_value=True
+        )
+        attr = {}
+        context = {"request": request, "view": view}
+        serializer = SAMLSocialLoginSerializer(context=context)
+        r = serializer.validate(attr)
+        assert "user" in attr
+        assert attr["user"].username == user.username
