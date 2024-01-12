@@ -101,6 +101,17 @@ APP_HOST = "example.com" the hostname of this backend
 
 ```
 
+Also make sure to take a hard look at the django-allauth settings as well as at the dj-rest-auth settings.
+
+For instance, the following could be something you want to add to your application
+
+```python
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+```
+
 ## SAML flow:
 
 <img src="saml_flow_diagram.png" alt="example" width="800"/>
