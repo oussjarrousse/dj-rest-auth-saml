@@ -27,7 +27,7 @@ setup(
     long_description=open("README.md", "r", encoding="utf-8").read(),
     keywords="Django REST SAML allauth dj-rest-auth SAML2.0 SAML2",
     extras_require={"dev": ["pre-commit", "tox"]},
-    version="0.0.4",
+    version="0.0.5",
     long_description_content_type="text/markdown",
     classifiers=[
         "Framework :: Pytest",
