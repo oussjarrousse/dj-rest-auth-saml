@@ -6,7 +6,15 @@
 
 ## Requirements:
 
-Make sure that `django-allauth` is installed with the SAML 2.0 extension:
+Besides Django, this package depends on the following packages:
+
+- [django-allauth](https://allauth.org/) that provides advanced authentication functionality to the Django framework.
+- [django-rest-framework](https://django-rest-framework.org), DRF, that provides an extendible and flexible way to build Web APIs on top of Django
+- [dj-rest-auth](https://dj-rest-auth.readthedocs.io/en/latest/introduction.html) provides RESTful API endpoints for the django-allauth using DRF (`django-allauth` does not provide API support out of the box [yet](https://allauth.org/news/2024/04/api-feedback/).)
+
+To use the package effectively, make sure `django-allauth`, `django-rest-framework` and `dj-rest-auth` are installed and configured correctly.
+
+Also, make sure that `django-allauth` is installed with the SAML2 extension:
 
 ```bash
 pip install django-allauth[SAML]
@@ -117,6 +125,18 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 <img src="saml_flow_diagram.png" alt="example" width="800"/>
 
 
+## Integration
+
+The package adds the following API nodes:
+
+```
+/auth/social-login/saml/<organization_slug>/
+/auth/social-login/saml/<organization_slug>/login/
+/auth/social-login/saml/<organization_slug>/asc/
+/auth/social-login/saml/<organization_slug>/asc/finish/
+/auth/social-login/saml/<organization_slug>/sls/
+/auth/social-login/saml/<organization_slug>/metadata/
+```
 
 ## Contributing
 Contributions to this project are welcomed! The Contributing Guide is still under construction.
